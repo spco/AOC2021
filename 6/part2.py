@@ -9,15 +9,11 @@ def read_input(input_filename):
 
 def main(input_lines):
     fish = [int(item) for item in input_lines[0].split(',')]
-    fish_count = dict()
-    for i in range(9):
-        fish_count[i] = 0
+    fish_count = dict.fromkeys(range(9), 0)
     for f in fish:
         fish_count[f] += 1
     for time in range(256):
-        new_fish_count = dict()
-        for i in range(9):
-            new_fish_count[i] = 0
+        new_fish_count = dict.fromkeys(range(9), 0)
         for f, f_val in fish_count.items():
             if f == 0:
                 new_fish_count[8] = f_val
@@ -26,7 +22,7 @@ def main(input_lines):
                 new_fish_count[f - 1] += f_val
         fish_count = new_fish_count
 
-    return sum(num for num in new_fish_count.values())
+    return sum(num for num in fish_count.values())
 
 
 def functional(input_lines):
