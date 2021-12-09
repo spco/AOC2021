@@ -76,13 +76,6 @@ def main(input_lines):
             boards[coord[0]].board[coord[1]][coord[2]] = (this_value[0], True)
         return boards
 
-    def check_board_for_completion(board):
-        """
-        Board will be a list of lists of tuples
-        :param board:
-        :return:
-        """
-
     for number in call_order:
         print('\n', int(number), find_in_boards(boards, int(number)))
         boards = apply_call(boards, number)
