@@ -1,4 +1,5 @@
 import os
+import functools
 
 
 def read_input(input_filename):
@@ -26,7 +27,13 @@ def main(input_lines):
 
 
 def functional(input_lines):
-    pass
+    crab_positions = [int(item) for item in input_lines[0].split(',')]
+    print(crab_positions)
+    return functools.reduce(lambda x, y: min(x, y),
+                            [sum(triangular_number(abs(a - crab_pos)) for crab_pos in
+                                 crab_positions)
+                             for a in range(min(crab_positions),
+                                            max(crab_positions) + 1)])
 
 
 if __name__ == "__main__":
