@@ -8,7 +8,6 @@ def read_input(input_filename):
     return input_split_lines
 
 
-
 def main(input_lines):
     crab_positions = [int(item) for item in input_lines[0].split(',')]
     print(crab_positions)
@@ -24,10 +23,12 @@ def main(input_lines):
 def functional(input_lines):
     crab_positions = [int(item) for item in input_lines[0].split(',')]
     print(crab_positions)
-    functools.reduce((lambda x, y: min(x, y), sum(abs(x - crab_pos) for crab_pos in
-                                      crab_positions)),
-                     range(min(crab_positions), max(crab_positions)+1))
-    pass
+    # Take the minimum of the sums of distances to each crab, over all candidate
+    # positions
+    return functools.reduce(lambda x, y: min(x, y),
+                            [sum(abs(a - crab_pos) for crab_pos in crab_positions)
+                             for a in range(min(crab_positions),
+                                            max(crab_positions)+1)])
 
 
 if __name__ == "__main__":

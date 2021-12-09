@@ -13,9 +13,9 @@ class Test(unittest.TestCase):
         self.assertTrue(True)
         self.assertEqual(expected_value, main(self.input_lines))
 
-    # def test_functional(self):
-    #     self.assertTrue(True)
-    #     self.assertEqual(expected_value, functional(self.input_lines))
+    def test_functional(self):
+        self.assertTrue(True)
+        self.assertEqual(expected_value, functional(self.input_lines))
 
 
 if __name__ == '__main__':
