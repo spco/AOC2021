@@ -7,24 +7,19 @@ def read_input(input_filename):
     return input_split_lines
 
 
-def count(value, lines):
-    word_lengths = [len(word) for line in lines for word in line]
-    counter = 0
-    for word in word_lengths:
-        if word == value:
-            counter += 1
-    return counter
+def count(length, lines):
+    """
+    Returns the number of times words of the given length are found in a list of lines
+    """
+    word_lengths = len([word for line in lines for word in line if len(word) == length])
+    return word_lengths
 
 
 def main(input_lines):
     input_lines = [item.split('|') for item in input_lines]
     output_lines = [line[1].split() for line in input_lines]
     unique_sizes = {1: 2, 4: 4, 7: 3, 8: 7}
-    ones = count(unique_sizes[1], output_lines)
-    fours = count(unique_sizes[4], output_lines)
-    sevens = count(unique_sizes[7], output_lines)
-    eights = count(unique_sizes[8], output_lines)
-    return ones + fours + sevens + eights
+    return sum(count(i, output_lines) for i in unique_sizes.values())
 
 
 def functional(input_lines):
