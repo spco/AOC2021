@@ -25,42 +25,41 @@ def identify_strings(line):
     strings[7] = [string for string in line if _is(string, 7)][0]
     strings[4] = [string for string in line if _is(string, 4)][0]
 
-    top_segment = set(strings[7]).difference(strings[1]).pop()
+    top_segment = set(strings[7]).difference(set(strings[1])).pop()
     # 9 can be identified as the only 6-string containing all of the characters from 4.
-    for word in line:
-        if len(word) == 6 and set(strings[4]).issubset(set(word)):
-            strings[9] = word
+    strings[9] = next(word for word in line
+                      if len(word) == 6
+                      and set(strings[4]).issubset(set(word)))
 
     # Thus bottom-left is the only one not in nine_string
     bottom_left_segment = set(strings[8]).difference(set(strings[9])).pop()
 
     # 2 is the 5-string containing both top and bottom_left
-    for word in line:
-        if len(word) == 5 and top_segment in word and bottom_left_segment in word:
-            strings[2] = word
+    strings[2] = next(word for word in line
+                      if len(word) == 5
+                      and top_segment in word
+                      and bottom_left_segment in word)
 
     # 0 must be the 6-string that isn't 9 and contains the segments from 1.
-    for word in line:
-        if len(word) == 6 and set(strings[1]).issubset(word) and set(word) != set(
-                strings[9]):
-            strings[0] = word
+    strings[0] = next(word for word in line
+                      if len(word) == 6
+                      and set(strings[1]).issubset(word)
+                      and set(word) != set(strings[9]))
 
     # 6 must be the 6-string that isn't nine or zero
-    for word in line:
-        if len(word) == 6 and set(word) != set(strings[9]) and set(word) != set(
-                strings[0]):
-            strings[6] = word
+    strings[6] = next(word for word in line
+                      if len(word) == 6
+                      and set(word) not in [set(strings[9]), set(strings[0])])
 
     # five is the subset of 6 with 5 chars
-    for word in line:
-        if len(word) == 5 and set(word).issubset(set(strings[6])):
-            strings[5] = word
+    strings[5] = next(word for word in line
+                      if len(word) == 5
+                      and set(word).issubset(set(strings[6])))
 
-    # three is the remaining 5-string
-    for word in line:
-        if len(word) == 5 and set(word) != set(strings[5]) and set(word) != set(
-                strings[2]) and set(word) != set(strings[5]):
-            strings[3] = word
+    # three is the 5-string that isn't 2 or 5
+    strings[3] = next(word for word in line
+                      if len(word) == 5
+                      and set(word) not in [set(strings[2]), set(strings[5])])
 
     return strings
 
